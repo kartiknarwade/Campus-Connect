@@ -1,102 +1,110 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package university.management.system;
 
-
 import java.awt.*;
-import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.*;
 import java.sql.*;
 
-public class Login extends JFrame implements ActionListener{
+public class Login extends JFrame implements ActionListener {
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JButton loginButton, cancelButton, registerButton;
 
-    JFrame f;
-    JLabel l1,l2;
-    JTextField t1;
-    JPasswordField t2;
-    JButton b1,b2;
+    public Login() {
+        setTitle("Login");
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // full screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        setLocationRelativeTo(null); // center screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    Login(){
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        mainPanel.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        super("Login");
+        // Username
+        JLabel userLabel = new JLabel("Username:");
+        userLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        usernameField = new JTextField(20); // wider field
+        gbc.gridx = 0; gbc.gridy = 0;
+        mainPanel.add(userLabel, gbc);
+        gbc.gridx = 1; gbc.gridy = 0;
+        mainPanel.add(usernameField, gbc);
 
-        setBackground(Color.white);
-        setLayout(null);
+        // Password
+        JLabel passLabel = new JLabel("Password:");
+        passLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        passwordField = new JPasswordField(20);
+        gbc.gridx = 0; gbc.gridy = 1;
+        mainPanel.add(passLabel, gbc);
+        gbc.gridx = 1; gbc.gridy = 1;
+        mainPanel.add(passwordField, gbc);
 
-        l1 = new JLabel("Username");
-        l1.setBounds(40,20,100,30);
-        add(l1);
-        
-        l2 = new JLabel("Password");
-        l2.setBounds(40,70,100,30);
-        add(l2);
- 
-        t1=new JTextField();
-        t1.setBounds(150,20,150,30);
-        add(t1);
+        // Buttons
+        JPanel buttonPanel = new JPanel();
+        loginButton = new JButton("Login");
+        cancelButton = new JButton("Cancel");
+        registerButton = new JButton("Register");
+        loginButton.addActionListener(this);
+        cancelButton.addActionListener(this);
+        registerButton.addActionListener(this);
+        loginButton.setFont(new Font("Arial", Font.BOLD, 20));
+        cancelButton.setFont(new Font("Arial", Font.BOLD, 20));
+        registerButton.setFont(new Font("Arial", Font.BOLD, 20));
+        buttonPanel.add(loginButton);
+        buttonPanel.add(registerButton);
+        buttonPanel.add(cancelButton);
 
-        t2=new JPasswordField();
-        t2.setBounds(150,70,150,30);
-        add(t2);
-        
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("university/management/system/icons/second.jpg"));
-        Image i2 = i1.getImage().getScaledInstance(200,200,Image.SCALE_DEFAULT);
-        ImageIcon i3 =  new ImageIcon(i2);
-        JLabel l3 = new JLabel(i3);
-        l3.setBounds(350,20,150,150);
-        add(l3);
+        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        mainPanel.add(buttonPanel, gbc);
 
-
-        b1 = new JButton("Login");
-        b1.setBounds(40,140,120,30);
-        b1.setFont(new Font("serif",Font.BOLD,15));
-        b1.addActionListener(this);
-        b1.setBackground(Color.BLACK);
-        b1.setForeground(Color.WHITE);
-        add(b1);
-
-        b2=new JButton("Cancel");
-        b2.setBounds(180,140,120,30);
-        b2.setFont(new Font("serif",Font.BOLD,15));
-        b2.setBackground(Color.BLACK);
-        b2.setForeground(Color.WHITE);
-        add(b2);
-
-        b2.addActionListener(this);
-        
-        getContentPane().setBackground(Color.WHITE);
-
+        add(mainPanel);
         setVisible(true);
-        setSize(600,300);
-        setLocation(500,300);
-
     }
 
-    public void actionPerformed(ActionEvent ae){
-
-        try{
-            conn c1 = new conn();
-            String u = t1.getText();
-            String v = t2.getText();
-            
-            String q = "select * from login where username='"+u+"' and password='"+v+"'";
-            
-            ResultSet rs = c1.s.executeQuery(q); 
-            if(rs.next()){
-                new Project().setVisible(true);
-                setVisible(false);
-            }else{
-                JOptionPane.showMessageDialog(null, "Invalid login");
-                setVisible(false);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == loginButton) {
+            loginUser();
+        } else if (ae.getSource() == cancelButton) {
+            System.exit(0);
+        } else if (ae.getSource() == registerButton) {
+            new RegisterForm().setVisible(true); // Open register form
+            this.dispose();
         }
     }
-    public static void main(String[] arg){
-        Login l = new Login();
+
+    private void loginUser() {
+        String username = usernameField.getText();
+        String password = new String(passwordField.getPassword());
+
+        try {
+            conn c = new conn();
+            String query = "SELECT * FROM login WHERE username = ? AND password = ?";
+            PreparedStatement pst = c.c.prepareStatement(query);
+            pst.setString(1, username);
+            pst.setString(2, password);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this, "Login Successful");
+                setVisible(false);
+                new Project().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+            }
+            rs.close();
+            pst.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Login::new);
     }
 }

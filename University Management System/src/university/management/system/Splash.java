@@ -1,46 +1,62 @@
 package university.management.system;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
-public class Splash{
-    public static void main(String s[]){
-        Frame f = new Frame("Solapur University");
-        f.setVisible(true); 
-        int i;
-        int x=1;
-        for(i=2;i<=600;i+=4,x+=1){
-            f.setLocation((800-((i+x)/2) ),500-(i/2));
-            f.setSize(i+3*x,i+x/2);
-            
-            try{
-                Thread.sleep(10);
-            }catch(Exception e) { }
+public class Splash extends JFrame {
+    private JLabel background;
+
+    public Splash() {
+        setTitle("Solapur University");
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Full screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Load your splash image
+        ImageIcon imgIcon = new ImageIcon(ClassLoader.getSystemResource("university/management/system/icons/first.jpg"));
+        Image img = imgIcon.getImage();
+
+        background = new JLabel();
+        background.setHorizontalAlignment(JLabel.CENTER);
+        background.setVerticalAlignment(JLabel.CENTER);
+        add(background, BorderLayout.CENTER);
+
+        // Show image scaled initially
+        setScaledImage(img);
+
+        // Resize dynamically when window is resized
+        addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                setScaledImage(img);
+            }
+        });
+
+        // Timer to open Login page after 3 seconds
+        Timer timer = new Timer(3000, e -> {
+            setVisible(false);
+            try {
+                new Login().setVisible(true); // Opens your login page
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            dispose();
+        });
+        timer.setRepeats(false); // Run only once
+        timer.start();
+
+        setVisible(true);
+    }
+
+    private void setScaledImage(Image img) {
+        int w = getWidth();
+        int h = getHeight();
+        if (w > 0 && h > 0) {
+            Image scaled = img.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+            background.setIcon(new ImageIcon(scaled));
         }
     }
-}
-class Frame extends JFrame implements Runnable{
-    Thread t1;
-    Frame(String s){
-        super(s);
-        setLayout(new FlowLayout());
-        ImageIcon c1 = new ImageIcon(ClassLoader.getSystemResource("university/management/system/icons/first.jpg"));
-        Image i1 = c1.getImage().getScaledInstance(1200, 675,Image.SCALE_DEFAULT);
-        ImageIcon i2 = new ImageIcon(i1);
-        
-        JLabel m1 = new JLabel(i2);
-        add(m1);
-        t1 = new Thread(this);
-        t1.start();
-    }
-    public void run(){
-        try{
-            Thread.sleep(7000);
-            this.setVisible(false);
-            Login f1 = new Login();
-            
-        }catch(Exception e){
-            e.printStackTrace(); 
-        }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Splash());
     }
 }
