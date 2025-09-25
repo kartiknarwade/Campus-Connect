@@ -26,7 +26,7 @@ public class Login extends JFrame implements ActionListener {
 
         // Username
         JLabel userLabel = new JLabel("Username:");
-        userLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        userLabel.setFont(new Font("Arial", Font.BOLD, 18));
         usernameField = new JTextField(20); // wider field
         gbc.gridx = 0; gbc.gridy = 0;
         mainPanel.add(userLabel, gbc);
@@ -35,7 +35,7 @@ public class Login extends JFrame implements ActionListener {
 
         // Password
         JLabel passLabel = new JLabel("Password:");
-        passLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        passLabel.setFont(new Font("Arial", Font.BOLD, 18));
         passwordField = new JPasswordField(20);
         gbc.gridx = 0; gbc.gridy = 1;
         mainPanel.add(passLabel, gbc);

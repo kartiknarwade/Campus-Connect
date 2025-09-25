@@ -15,13 +15,12 @@ public class RegisterForm extends JFrame implements ActionListener {
         setExtendedState(JFrame.MAXIMIZED_BOTH); // full screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(20, 20, 20, 20); // bigger spacing
+        gbc.insets = new Insets(20, 20, 20, 20);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Fonts
