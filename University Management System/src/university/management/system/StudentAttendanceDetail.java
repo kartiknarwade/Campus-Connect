@@ -7,7 +7,6 @@ package university.management.system;
 
 import java.sql.*;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
 public class StudentAttendanceDetail extends JFrame implements ActionListener{
@@ -25,7 +24,7 @@ public class StudentAttendanceDetail extends JFrame implements ActionListener{
 
         try{
             String q="select * from attendance_student";
-            conn c1=new conn();
+            Conn c1=new Conn();
             ResultSet rs=c1.s.executeQuery(q);
             while(rs.next()){
                 d[i][j++]=rs.getString("rollno");

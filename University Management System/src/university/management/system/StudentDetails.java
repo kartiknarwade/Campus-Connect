@@ -70,7 +70,7 @@ public class StudentDetails extends JFrame implements ActionListener{
         
         
         try{
-            conn c1  = new conn();
+            Conn c1  = new Conn();
             String s1 = "select * from student";
             ResultSet rs  = c1.s.executeQuery(s1);
             while(rs.next()){
@@ -106,7 +106,7 @@ public class StudentDetails extends JFrame implements ActionListener{
     }
     public void actionPerformed(ActionEvent ae){
         
-        conn c1 = new conn();
+        Conn c1 = new Conn();
     
         if(ae.getSource() == b1){
             try{

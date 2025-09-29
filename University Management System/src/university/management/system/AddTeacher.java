@@ -220,7 +220,7 @@ class AddTeacher implements ActionListener{
         
         if(ae.getSource() == b){
             try{
-                conn cc = new conn();
+                Conn cc = new Conn();
                 String q = "insert into teacher values('"+a+"','"+bb+"','"+c+"','"+d+"','"+e+"','"+ff+"','"+g+"','"+h+"','"+i+"','"+j+"','"+k+"','"+l+"','"+m+"')";
                 cc.s.executeUpdate(q);
                 JOptionPane.showMessageDialog(null,"Teacher Details Inserted Successfully");

@@ -6,7 +6,6 @@
 package university.management.system;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
 
@@ -36,7 +35,7 @@ public class Marks extends JFrame{
    
    public void mark(String s){
     try{
-           conn c = new conn();
+           Conn c = new Conn();
            
            t1.setText("\tResult of Examination\n\nSubject\n");
            

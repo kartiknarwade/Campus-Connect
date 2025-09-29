@@ -22,7 +22,7 @@ public class StudentAttendance extends JFrame implements ActionListener{
         setLayout(new GridLayout(4,2,50,50));
         c2 = new Choice();
         try{
-            conn c = new conn();
+            Conn c = new Conn();
             ResultSet rs = c.s.executeQuery("select * from student");
             while(rs.next()){
                 c2.add(rs.getString("rollno"));    
@@ -83,7 +83,7 @@ public class StudentAttendance extends JFrame implements ActionListener{
         String qry = "insert into attendance_student values("+ id +",'"+dt+"','"+f+"','"+s+"')";
        
         try{
-            conn c1 = new conn();
+            Conn c1 = new Conn();
             c1.s.executeUpdate(qry);
             JOptionPane.showMessageDialog(null,"Attendance confirmed");
             this.setVisible(false);

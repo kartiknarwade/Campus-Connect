@@ -2,11 +2,11 @@ package university.management.system;
 
 import java.sql.*;
 
-public class conn {
+public class Conn {
     public Connection c;
     public Statement s;
 
-    public conn() {
+    public Conn() {
         try {
             // Load MySQL JDBC Driver
             Class.forName("com.mysql.cj.jdbc.Driver");

@@ -22,7 +22,7 @@ public class ExaminationDetails extends JFrame implements ActionListener{
    
     public void Book() {
         try {
-            conn con = new conn();
+            Conn con = new Conn();
             String sql = "select * from student";
             PreparedStatement st = con.c.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -111,7 +111,7 @@ public class ExaminationDetails extends JFrame implements ActionListener{
    
     public void actionPerformed(ActionEvent ae){
         try{
-            conn con = new conn();
+            Conn con = new Conn();
             if(ae.getSource() == b1){            
                 new Marks(search.getText()).setVisible(true);
                 this.setVisible(false);

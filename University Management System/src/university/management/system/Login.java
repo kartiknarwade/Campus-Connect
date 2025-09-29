@@ -82,7 +82,7 @@ public class Login extends JFrame implements ActionListener {
         String password = new String(passwordField.getPassword());
 
         try {
-            conn c = new conn();
+            Conn c = new Conn();
             String query = "SELECT * FROM login WHERE username = ? AND password = ?";
             PreparedStatement pst = c.c.prepareStatement(query);
             pst.setString(1, username);

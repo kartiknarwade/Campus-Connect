@@ -194,7 +194,7 @@ class UpdateTeacher implements ActionListener{
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==b){
             try{
-                conn con = new conn();
+                Conn con = new Conn();
                 String str = "update teacher set name='"+t1.getText()+"',fathers_name='"+t2.getText()+"',age='"+t3.getText()+"', dob='"+t4.getText()+"',address='"+t5.getText()+"',phone='"+t6.getText()+"',email='"+t7.getText()+"',class_x='"+t8.getText()+"',class_xii='"+t9.getText()+"',aadhar='"+t10.getText()+"', emp_id = '"+t11.getText()+"',course='"+t13.getText()+"',dept='"+t14.getText()+"' where emp_id='"+t12.getText()+"'";
                 con.s.executeUpdate(str);
                 JOptionPane.showMessageDialog(null,"successfully updated");
@@ -210,7 +210,7 @@ class UpdateTeacher implements ActionListener{
         }
         if(ae.getSource() == b2){
             try{
-                conn con = new conn();
+                Conn con = new Conn();
                 String str = "select * from teacher where emp_id = '"+t12.getText()+"'";
                 ResultSet rs = con.s.executeQuery(str);
 

@@ -3,7 +3,6 @@ package university.management.system;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.sql.*;
 
 public class EnterMarks extends JFrame implements ActionListener{
 
@@ -92,7 +91,7 @@ public class EnterMarks extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae){
         try{
             if(ae.getSource() == b1){
-                conn c1 = new conn();
+                Conn c1 = new Conn();
 
                 String s1 = "insert into subject values('"+t1.getText()+"','"+t2.getText()+"','"+t4.getText()+"','"+t6.getText()+"','"+t8.getText()+"','"+t10.getText()+"')";
                 String s2 = "insert into marks values('"+t1.getText()+"','"+t3.getText()+"','"+t5.getText()+"','"+t7.getText()+"','"+t9.getText()+"','"+t11.getText()+"')";

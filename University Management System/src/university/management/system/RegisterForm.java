@@ -101,7 +101,7 @@ public class RegisterForm extends JFrame implements ActionListener {
         }
 
         try {
-            conn c = new conn();
+            Conn c = new Conn();
             String insertQuery = "INSERT INTO login(username, password) VALUES (?, ?)";
             PreparedStatement pst = c.c.prepareStatement(insertQuery);
             pst.setString(1, username);

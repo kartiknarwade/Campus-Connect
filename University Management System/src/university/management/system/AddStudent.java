@@ -206,7 +206,7 @@ class AddStudent implements ActionListener{
         
         if(ae.getSource() == b){
             try{
-                conn cc = new conn();
+                Conn cc = new Conn();
                 String q = "INSERT INTO student (name, fathers_name, dob, age, aadhar, email, class_x, class_xii, phone, rollno, course, branch, address) "
                         + "VALUES ('"+a+"','"+bb+"','"+d+"','"+c+"','"+j+"','"+g+"','"+h+"','"+i+"','"+ff+"','"+k+"','"+l+"','"+m+"','"+e+"')";
                 cc.s.executeUpdate(q);

@@ -29,7 +29,6 @@ public class AboutUs extends JFrame{
             l1.setBounds(400, 40, 250, 100);
             contentPane.add(l1);
 
-
             JLabel l3 = new JLabel("University");
             l3.setForeground(new Color(0, 250, 154));
             l3.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 34));
@@ -41,9 +40,6 @@ public class AboutUs extends JFrame{
             l4.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 34));
             l4.setBounds(70, 90, 405, 40);
             contentPane.add(l4);
-
-
-
 
             JLabel l6 = new JLabel("Developed By : Kartik Narwade");
             l6.setFont(new Font("Trebuchet MS", Font.BOLD, 30));
@@ -65,10 +61,6 @@ public class AboutUs extends JFrame{
             l9.setBounds(70, 320, 600, 34);
             contentPane.add(l9);
 
-
-
-                
-                
             contentPane.setBackground(Color.WHITE);
 	}
         

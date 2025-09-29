@@ -10,7 +10,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.*;
 
 public class StudentFeeForm extends JFrame implements ActionListener{
 
@@ -39,7 +38,7 @@ public class StudentFeeForm extends JFrame implements ActionListener{
 	
         
         try{
-            conn c = new conn();
+            Conn c = new Conn();
             ResultSet rs = c.s.executeQuery("select * from student");
             while(rs.next()){
                 c1.add(rs.getString("rollno"));
@@ -100,7 +99,7 @@ public class StudentFeeForm extends JFrame implements ActionListener{
 	contentPane.add(t3);
         
         try{
-            conn c = new conn();
+            Conn c = new Conn();
             ResultSet rs = c.s.executeQuery("select * from student where rollno = '"+c1.getSelectedItem()+"'");
             while(rs.next()){
                 t2.setText(rs.getString("name"));
@@ -178,7 +177,7 @@ public class StudentFeeForm extends JFrame implements ActionListener{
             
             if(ae.getSource() == b1){
                 try{
-                conn con = new conn();
+                Conn con = new Conn();
                 String sql = "insert into fee(rollno, name, fathers_name, course, branch, semester, fee_paid) values(?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement st = con.c.prepareStatement(sql);
 		st.setString(1, c1.getSelectedItem());
